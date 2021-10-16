@@ -1,5 +1,8 @@
 package top.yq59.menu.model.vo;
 
+import lombok.Data;
+
+@Data
 public class Pagination {
     private int currentPage;
     private int pageSize;

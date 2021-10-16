@@ -1,7 +1,10 @@
 package top.yq59.menu.model.vo;
 
+import lombok.Data;
+
 import java.util.List;
 
+@Data
 public class PaginationViewModel<T> {
     private List<T> list;
     private Pagination pagination;
