@@ -23,16 +23,18 @@
 
 <script>
 import { defineComponent, reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
 export default defineComponent({
   setup() {
     const menuLists = reactive([
       { id: '/dashboard', name: '食谱' },
-      { id: 2, name: '食材' }
+      { id: '/ingredients', name: '食材' }
     ])
-    const activeIndex = ref('1')
+    const { currentRoute } = useRouter()
+    const activeIndex = ref(currentRoute.value.path)
 
-    const handleSelect = (a, b, c) => {
-      console.log(a, b, c)
+    const handleSelect = () => {
+      // console.log(a, b, c)
     }
 
     return {

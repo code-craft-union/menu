@@ -2,7 +2,13 @@
   <div>
     <Header />
     <div class="global-content">
-      <router-view />
+      <div class="container">
+        <router-view v-slot="{ Component }">
+          <keep-alive>
+            <component :is="Component" />
+          </keep-alive>
+        </router-view>
+      </div>
     </div>
   </div>
 </template>
@@ -21,5 +27,7 @@ export default defineComponent({
 .global-content {
   min-height: 100vh;
   background-color: #F5F5F5;
+  padding-top: 20px;
+  width: 100%
 }
 </style>
