@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <el-button>测试</el-button>
-  </div>
+  <div>食材</div>
 </template>
 
 <script>
