@@ -1,10 +1,29 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import Layout from '@/layout'
 
 const routes = [
   {
     path: '/',
     name: 'Index',
-    component: () => import('@/views/Home')
+    redirect: '/dashboard',
+    component: Layout,
+    children: [
+      {
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: () => import('@/views/Home')
+      },
+      {
+        path: 'ingredients',
+        name: 'Ingredients',
+        component: () => import('@/views/Ingredients')
+      },
+      {
+        path: 'detail',
+        name: 'Detail',
+        component: () => import('@/views/Detail')
+      }
+    ]
   }
 ]
 
