@@ -2,9 +2,9 @@ package top.yq59.menu.model.entity;
 
 import lombok.Getter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "food_material")
@@ -16,13 +16,20 @@ public class Ingredient extends BaseEntity{
     @Column(name = "Name",nullable = false)
     private String name;
 
+    /**
+     * 价格
+     */
     @Column(name = "Price")
     private Float price;
+
     /**
      * 食材名称
      */
     @Column(name = "Remark")
     private String remark;
+
+    @ManyToMany(targetEntity = Menu.class)
+    private Set<Menu> menus = new HashSet<Menu>();
 
     public static Ingredient create(String name,Float price,String remark){
         Ingredient ingredient = new Ingredient();

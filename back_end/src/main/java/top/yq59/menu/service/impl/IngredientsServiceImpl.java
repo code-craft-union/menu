@@ -1,10 +1,10 @@
 package top.yq59.menu.service.impl;
 
-import lombok.var;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.yq59.menu.model.dto.AddIngredientCommand;
@@ -12,12 +12,12 @@ import top.yq59.menu.model.dto.EditIngredientCommand;
 import top.yq59.menu.model.entity.Ingredient;
 import top.yq59.menu.model.vo.IngredientPageViewModel;
 import top.yq59.menu.model.vo.IngredientPaginationViewModel;
+import top.yq59.menu.model.vo.IngredientViewModel;
 import top.yq59.menu.repository.IngredientRepository;
 import top.yq59.menu.service.intf.IngredientsService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class IngredientsServiceImpl implements IngredientsService {
@@ -55,7 +55,14 @@ public class IngredientsServiceImpl implements IngredientsService {
     public IngredientPaginationViewModel getByPage(String name, int currentPage, int pageSize) {
         currentPage = currentPage == 0 ? 1 : currentPage;
         pageSize = pageSize == 0 ? 1 : 10;
-        Page<Ingredient> queryResult = ingredientRepository.findAll(PageRequest.of(currentPage-1,pageSize));
+        //构造查询条件
+        Page<Ingredient> queryResult;
+        if(name !=null && !name.trim().equals("")){
+            Specification<Ingredient> spec = (root, query, cb) -> cb.like(root.get("name").as(String.class), "%"+ name +"%");
+            queryResult = ingredientRepository.findAll(spec,PageRequest.of(currentPage-1,pageSize));
+        }else {
+            queryResult = ingredientRepository.findAll(PageRequest.of(currentPage-1,pageSize));
+        }
         List<IngredientPageViewModel> result = new ArrayList<>();
         queryResult.forEach(y ->{
             IngredientPageViewModel viewModel = new IngredientPageViewModel();
@@ -63,5 +70,13 @@ public class IngredientsServiceImpl implements IngredientsService {
             result.add(viewModel);
         });
         return new IngredientPaginationViewModel(result,currentPage,pageSize,queryResult.getTotalPages());
+    }
+
+    @Override
+    public IngredientViewModel getById(int id) {
+        Ingredient ingredient = ingredientRepository.getById(id);
+        IngredientViewModel viewModel = new IngredientViewModel();
+        BeanUtils.copyProperties(ingredient,viewModel);
+        return viewModel;
     }
 }
