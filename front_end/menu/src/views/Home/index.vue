@@ -8,22 +8,12 @@
           class="food-item"
           shadow="hover"
         >
-          <el-row :gutter="20">
-            <el-col :span="6">
-              <el-image
-                :src="food.image"
-                fit="cover"
-              />
-            </el-col>
-            <el-col :span="18">
-              <h3>测试</h3>
-            </el-col>
-          </el-row>
+          <h3>测试</h3>
         </el-card>
       </el-col>
       <el-col :span="6">
         <div class="control">
-          <el-button type="primary">添加食谱</el-button>
+          <el-button type="primary" class="el-button-block">添加食谱</el-button>
         </div>
       </el-col>
     </el-row>
@@ -68,6 +58,7 @@ export default defineComponent({
 
 .food-item {
   margin-bottom: 20px; 
+  padding: 0 20px;
 }
 
 .control {

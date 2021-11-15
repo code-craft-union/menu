@@ -3,7 +3,7 @@
     <div class="control">
       <el-button type="primary" @click="handle">新增食材</el-button>
     </div>
-    <Table />
+    <Table ref="tableRef" />
 
     <el-dialog
       v-model="dialogVisible"
@@ -49,9 +49,10 @@ export default defineComponent({
   setup() {
     // dialog
     const i = ref(null)
-    const dialogVisible = ref(true)
+    const dialogVisible = ref(false)
     const isEdit = ref(false)
     const dialogName = computed(() => isEdit.value ? '编辑食材' : '新增食材')
+
     const handleClose = (done) => {
       ElMessageBox.confirm('您确定要取消添加食材吗？', {
         confirmButtonText: '确定',
@@ -64,8 +65,13 @@ export default defineComponent({
           // catch error
         })
     }
+    
+    const handle = () => {
+      dialogVisible.value = true
+    }
 
     // form
+    const tableRef = ref(null)
     const formData = ref({
       name: '',
       price: 0,
@@ -83,10 +89,13 @@ export default defineComponent({
       ]
     })
 
-    const handle = () => {}
     const handleSubmit = () => {
       createIngredients(unref(formData)).then(res => {
-        console.log(res)
+        if (res) {
+          dialogVisible.value = false
+          console.log(tableRef.value)
+          tableRef.value.initData()
+        }
       })
     }
 
@@ -96,6 +105,7 @@ export default defineComponent({
       handleClose,
       handle,
       handleSubmit,
+      tableRef,
       formData,
       rules,
       i
