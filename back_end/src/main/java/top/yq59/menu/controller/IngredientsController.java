@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import top.yq59.menu.model.dto.AddIngredientCommand;
 import top.yq59.menu.model.dto.EditIngredientCommand;
 import top.yq59.menu.model.vo.IngredientPaginationViewModel;
+import top.yq59.menu.model.vo.IngredientViewModel;
 import top.yq59.menu.service.intf.IngredientsService;
 
 @RestController
@@ -61,5 +62,15 @@ public class IngredientsController {
     @GetMapping(value = "getByPage")
     public IngredientPaginationViewModel getByPage(String name, int currentPage,int pageSize){
         return ingredientsService.getByPage(name,currentPage,pageSize);
+    }
+
+    /**
+     * 查询详细
+     * @param id
+     * @return
+     */
+    @GetMapping(value = "getById")
+    public IngredientViewModel getById(int id){
+        return ingredientsService.getById(id);
     }
 }
