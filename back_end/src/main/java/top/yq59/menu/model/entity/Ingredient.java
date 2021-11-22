@@ -28,7 +28,7 @@ public class Ingredient extends BaseEntity{
     @Column(name = "Remark")
     private String remark;
 
-    @ManyToMany(targetEntity = Menu.class)
+    @ManyToMany(mappedBy="ingredients")
     private Set<Menu> menus = new HashSet<Menu>();
 
     public static Ingredient create(String name,Float price,String remark){

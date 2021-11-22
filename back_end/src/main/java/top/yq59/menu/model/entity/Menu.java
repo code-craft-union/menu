@@ -34,8 +34,8 @@ public class Menu extends BaseEntity {
      */
     @ManyToMany(targetEntity = Ingredient.class, cascade = CascadeType.ALL)
     @JoinTable(name = "menu_relation_meterial",
-            joinColumns = {@JoinColumn(name = "FoodMaterialid", referencedColumnName = "Id")},
-            inverseJoinColumns = {@JoinColumn(name = "Menuid", referencedColumnName = "Id")}
+            joinColumns = {@JoinColumn(name = "FoodMateriaId", referencedColumnName = "Id")},
+            inverseJoinColumns = {@JoinColumn(name = "MenuId", referencedColumnName = "Id")}
     )
     private Set<Ingredient> ingredients = new HashSet<Ingredient>();
 
