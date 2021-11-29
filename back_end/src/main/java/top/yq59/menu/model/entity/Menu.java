@@ -39,6 +39,12 @@ public class Menu extends BaseEntity {
     )
     private Set<Ingredient> ingredients = new HashSet<Ingredient>();
 
+    /**
+     * 关联每日食谱
+     */
+    @ManyToMany(mappedBy="menus")
+    private Set<Daily> dailys = new HashSet<Daily>();
+
     public static Menu create(String name, String link, String remark, Set<Ingredient> ingredients) {
         Menu menu = new Menu();
         menu.name = name;
@@ -48,9 +54,10 @@ public class Menu extends BaseEntity {
         return menu;
     }
 
-    public void edit(String name, String link, String remark){
+    public void edit(String name, String link, String remark, Set<Ingredient> ingredients){
         this.name = name;
         this.link = link;
         this.remark = remark;
+        this.ingredients = ingredients;
     }
 }

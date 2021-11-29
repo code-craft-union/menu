@@ -4,6 +4,8 @@ import lombok.Data;
 
 @Data
 public class MenuPageViewModel {
+    private int id;
+
     /**
      * 菜谱
      */

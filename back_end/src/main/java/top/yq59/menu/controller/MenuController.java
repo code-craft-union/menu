@@ -43,7 +43,7 @@ public class MenuController {
      * @param id
      */
     @PostMapping(value = "remove/{id}")
-    public void delete(@RequestParam int id){
+    public void delete(@PathVariable int id){
         menuService.delete(id);
     }
 

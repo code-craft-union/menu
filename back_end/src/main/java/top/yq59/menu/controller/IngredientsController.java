@@ -48,7 +48,7 @@ public class IngredientsController {
      * @param id
      */
     @PostMapping(value = "remove/{id}")
-    public void remove(@RequestParam int id){
+    public void remove(@PathVariable int id){
         ingredientsService.remove(id);
     }
 

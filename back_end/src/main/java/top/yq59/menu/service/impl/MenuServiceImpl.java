@@ -45,7 +45,8 @@ public class MenuServiceImpl implements MenuService {
     @Transactional(rollbackFor = Exception.class)
     public void edit(EditMenuCommand command) {
         Menu menu = menuRepository.getById(command.getId());
-        menu.edit(command.getName(), command.getLink(), command.getRemark());
+        Set<Ingredient> a = ingredientRepository.findAllByIdIn(command.getIngredients());
+        menu.edit(command.getName(), command.getLink(), command.getRemark(),a);
         menuRepository.save(menu);
     }
 
@@ -74,17 +75,17 @@ public class MenuServiceImpl implements MenuService {
             BeanUtils.copyProperties(y,viewModel);
             result.add(viewModel);
         });
-        return new MenuPaginationViewModel(result,currentPage,pageSize,queryResult.getTotalPages());
+        return new MenuPaginationViewModel(result,currentPage,pageSize,new Long(queryResult.getTotalElements()).intValue());
     }
 
     @Override
     public MenuViewModel getById(int id) {
         Menu menu = menuRepository.getById(id);
         MenuViewModel menuViewModel = new MenuViewModel();
-        menuViewModel.setId(menuViewModel.getId());
-        menuViewModel.setName(menuViewModel.getName());
-        menuViewModel.setLink(menuViewModel.getLink());
-        menuViewModel.setRemark(menuViewModel.getRemark());
+        menuViewModel.setId(menu.getId());
+        menuViewModel.setName(menu.getName());
+        menuViewModel.setLink(menu.getLink());
+        menuViewModel.setRemark(menu.getRemark());
         menuViewModel.setIngredients(menu.getIngredients().stream().map(y -> new IngredientViewModel(y.getId(),y.getName(),y.getPrice(), y.getRemark()))
                 .collect(Collectors.toList()));
         return menuViewModel;
