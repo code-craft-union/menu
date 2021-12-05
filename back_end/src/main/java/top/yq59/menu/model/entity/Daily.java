@@ -27,10 +27,24 @@ public class Daily extends BaseEntity{
     /**
      * 关联食谱
      */
-    @ManyToMany(targetEntity = Ingredient.class, cascade = CascadeType.ALL)
+    @ManyToMany(targetEntity = Menu.class, cascade = CascadeType.ALL)
     @JoinTable(name = "daily_relation_menu",
             joinColumns = {@JoinColumn(name = "MenuId", referencedColumnName = "Id")},
             inverseJoinColumns = {@JoinColumn(name = "DayId", referencedColumnName = "Id")}
     )
-    private Set<Ingredient> menus = new HashSet<Ingredient>();
+    private Set<Menu> menus = new HashSet<Menu>();
+
+    public static Daily create(Date day,DayMenuType dayMenuType,Set<Menu> menus){
+        Daily daily = new Daily();
+        daily.day = day;
+        daily.dayMenuType = dayMenuType;
+        daily.menus = menus;
+        return daily;
+    }
+
+    public void edit(Date day,DayMenuType dayMenuType,Set<Menu> menus){
+        this.day = day;
+        this.dayMenuType = dayMenuType;
+        this.menus = menus;
+    }
 }
