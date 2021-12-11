@@ -3,9 +3,11 @@ package top.yq59.menu.service.intf;
 import org.springframework.format.annotation.DateTimeFormat;
 import top.yq59.menu.constant.enums.DayMenuType;
 import top.yq59.menu.model.dto.SetDailyCommand;
+import top.yq59.menu.model.vo.DailyMenuViewModel;
 import top.yq59.menu.model.vo.DailyViewModel;
 
-import java.util.Date;
+import java.sql.Date;
+import java.util.List;
 
 public interface DailyService {
     /**
@@ -20,5 +22,5 @@ public interface DailyService {
      * @param dayMenuType
      * @return
      */
-    DailyViewModel getDailyMenu(Date date, DayMenuType dayMenuType);
+    List<DailyMenuViewModel> getDailyMenu(Date date, DayMenuType dayMenuType);
 }

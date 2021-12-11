@@ -42,9 +42,7 @@ public class Daily extends BaseEntity{
         return daily;
     }
 
-    public void edit(Date day,DayMenuType dayMenuType,Set<Menu> menus){
-        this.day = day;
-        this.dayMenuType = dayMenuType;
+    public void edit(Set<Menu> menus){
         this.menus = menus;
     }
 }
