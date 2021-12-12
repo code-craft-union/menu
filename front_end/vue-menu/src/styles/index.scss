@@ -1,0 +1,9 @@
+.app {
+  background-color: #F6F6F6;
+}
+
+.clearfix:after {
+  content: '';
+  display: table;
+  clear: both;
+}
