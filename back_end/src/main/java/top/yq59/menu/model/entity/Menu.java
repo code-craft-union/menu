@@ -4,7 +4,6 @@ import lombok.Getter;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -34,10 +33,16 @@ public class Menu extends BaseEntity {
      */
     @ManyToMany(targetEntity = Ingredient.class, cascade = CascadeType.ALL)
     @JoinTable(name = "menu_relation_meterial",
-            joinColumns = {@JoinColumn(name = "FoodMaterialid", referencedColumnName = "Id")},
-            inverseJoinColumns = {@JoinColumn(name = "Menuid", referencedColumnName = "Id")}
+            joinColumns = {@JoinColumn(name = "FoodMateriaId", referencedColumnName = "Id")},
+            inverseJoinColumns = {@JoinColumn(name = "MenuId", referencedColumnName = "Id")}
     )
     private Set<Ingredient> ingredients = new HashSet<Ingredient>();
+
+    /**
+     * 关联每日食谱
+     */
+    @ManyToMany(mappedBy="menus")
+    private Set<Daily> dailys = new HashSet<Daily>();
 
     public static Menu create(String name, String link, String remark, Set<Ingredient> ingredients) {
         Menu menu = new Menu();
@@ -48,9 +53,10 @@ public class Menu extends BaseEntity {
         return menu;
     }
 
-    public void edit(String name, String link, String remark){
+    public void edit(String name, String link, String remark, Set<Ingredient> ingredients){
         this.name = name;
         this.link = link;
         this.remark = remark;
+        this.ingredients = ingredients;
     }
 }

@@ -69,7 +69,7 @@ public class IngredientsServiceImpl implements IngredientsService {
             BeanUtils.copyProperties(y,viewModel);
             result.add(viewModel);
         });
-        return new IngredientPaginationViewModel(result,currentPage,pageSize,queryResult.getTotalPages());
+        return new IngredientPaginationViewModel(result,currentPage,pageSize,new Long(queryResult.getTotalElements()).intValue());
     }
 
     @Override
