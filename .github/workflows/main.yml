@@ -26,7 +26,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
       - name: 编译代码
-        run: mvn compile
+        run: mvn -f ./back_end/pom.xml compile
       - name: Deploy the JAR file to the remote server
         uses: actions/checkout@v2
       - name: Set up JDK 1.8
@@ -34,7 +34,7 @@ jobs:
         with:
           java-version: 1.8
       - name: Generate the package
-        run: mvn -B package --file pom.xml -Dmaven.test.skip=true
+        run: mvn -B package --file ./back_end/pom.xml -Dmaven.test.skip=true
       - name: 将 JAR 包部署到服务器
         uses: appleboy/scp-action@master
         with:
