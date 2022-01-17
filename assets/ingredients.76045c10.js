@@ -1,0 +1,1 @@
+import{s as t}from"./index.6d8fab14.js";function r(e){return t({url:"/api/ingredients/getByPage",params:e})}function i(e){return t({url:"/api/ingredients/add",method:"post",data:e})}function d(e){return t({url:"/api/ingredients/edit",method:"post",data:e})}function s(e){return t({url:`/api/ingredients/remove/${e}`,method:"post"})}export{i as c,s as d,r as g,d as u};
