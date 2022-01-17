@@ -11,7 +11,7 @@ on:
 jobs:
   compile:
     runs-on: ubuntu-latest
-    name: Running Java ${{ matrix.java }} compile
+    name: compile
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 1.8
@@ -53,3 +53,14 @@ jobs:
           user: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY}}
           args: "-tt"
+      # react项目为npm run-script build，vue项目改为npm run build
+    - name: Install and Build
+      run: |
+        npm install
+        npm run build:prod
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@releases/v3
+      with:
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        FOLDER: dist
+  
