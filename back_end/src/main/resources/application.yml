@@ -1,5 +1,14 @@
+
+
 spring:
-  profiles: dev
+  profiles:
+    active: dev
+
+# 指明使用的是 dev（开发环境）下的配置
+
+---
+#公共参数
+spring:
   datasource:
     username: root
     password: 123123
@@ -23,28 +32,29 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+---
+#开发环境
 server:
   port: 5910
+spring:
+  config:
+    activate:
+      on-profile: dev
 
 ---
-
-spring:
-  profiles: test
+#测试环境
 server:
   port: 9002
-
----
-
 spring:
-  profiles: proc
+  config:
+    activate:
+      on-profile: test
+---
+#生产环境
 server:
-  port: 9003
-
----
-
+  port: 5910
 spring:
-  profiles:
-    active: dev
-
-# 指明使用的是 dev（开发环境）下的配置
-
+  config:
+    activate:
+      on-profile: proc

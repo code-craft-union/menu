@@ -42,7 +42,7 @@ jobs:
         uses: fifsky/ssh-action@master
         with:
           command: | # 命令中的 & 表示在后台运行进程
-            cd /jarManager/ && java -jar menu.jar &
+            cd /jarManager/ && java -jar menu.jar --spring.profiles.active=proc &
           host: ${{ secrets.HOST }}
           user: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY}}
