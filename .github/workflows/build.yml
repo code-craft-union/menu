@@ -22,11 +22,12 @@ jobs:
         cd ./front_end/vue-menu
         npm install
         npm run build
-     
-    # react项目的FOLDER为build，vue项目改为dist   
-    - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@releases/v3
+    - name: 部署到服务器
+      uses: garygrossgarten/github-action-scp@release
       with:
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        BRANCH: front
-        FOLDER: ./front_end/vue-menu/dist
+        local: ./front_end/vue-menu/dist
+        remote: /var/www/html/menu
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        privateKey : ${{ secrets.KEY }}
+        rmRemote : true
